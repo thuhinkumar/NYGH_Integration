@@ -21,31 +21,6 @@ function fetchDocumentReference(smart, documentId) {
   });
 }
 
-//test document data
-var documentData = {
-            resourceType: "DocumentReference",
-            status: "current", // or another appropriate status
-            type: {
-              coding: [
-                {
-                  system: "http://loinc.org",
-                  code: "18842-5",
-                  display: "Discharge summary" // Replace with appropriate display text
-                }
-              ]
-            },
-            subject: {
-              reference: "Patient/" + patient.id
-            },
-            content: [
-              {
-                attachment: {
-                  contentType: "text/plain",
-                  data: btoa("This is what I want to summarize") // Base64 encode string
-                }
-              }
-            ]
-          };
 
 (function(window){
   window.extractData = function() {
@@ -70,7 +45,32 @@ var documentData = {
                       }
                     }
                   });
-        //creating a document reference for the summary, this can be called later
+  
+        //test document data
+          var documentData = {
+            resourceType: "DocumentReference",
+            status: "current", // or another appropriate status
+            type: {
+              coding: [
+                {
+                  system: "http://loinc.org",
+                  code: "18842-5",
+                  display: "Discharge summary" // Replace with appropriate display text
+                }
+              ]
+            },
+            subject: {
+              reference: "Patient/" + patient.id
+            },
+            content: [
+              {
+                attachment: {
+                  contentType: "text/plain",
+                  data: btoa("This is what I want to summarize") // Base64 encode string
+                }
+              }
+            ]
+          };//creating a document reference for the summary, this can be called later
         createDocumentReference(smart, documentData, function(response) {
         console.log('DocumentReference created:', response);
         var createdDocumentId = response.id; // Assuming the response contains the ID
