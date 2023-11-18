@@ -62,19 +62,19 @@
         //             id: createdDocumentId
         //           });
         
-        // $.when(pt, obv, docRef).fail(onError);
+        //$.when(pt, obv, docRef).fail(onError);
+        var dockRef = nil
+        $.when(pt, obv, docRef).done(function(patient, obv, docRef) {
+          var byCodes = smart.byCodes(obv, 'code');
+          var gender = patient.gender;
 
-        // $.when(pt, obv, docRef).done(function(patient, obv, docRef) {
-        //   var byCodes = smart.byCodes(obv, 'code');
-        //   var gender = patient.gender;
-
-        //   var fname = '';
-        //   var lname = '';
-        //   // Processing for the fetched DocumentReference
-        //   if (docRef) {
-        //     console.log('Fetched DocumentReference:', docRef);
-        //     // Additional processing as needed
-        //   }
+          var fname = '';
+          var lname = '';
+          // Processing for the fetched DocumentReference
+          if (docRef) {
+            console.log('Fetched DocumentReference:', docRef);
+            // Additional processing as needed
+          }
           
 
           if (typeof patient.name[0] !== 'undefined') {
@@ -88,8 +88,7 @@
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
           var dischargeSumary = byCodes("18842-5")
-          console.log("DISCHARGE SUMMAR IS", dischargeSumary)
-
+          onsole.log("DISCHARGE SUMMAR IS", dischargeSumary)
           console.log(patient)
           console.log(smart)
 
