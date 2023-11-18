@@ -23,6 +23,9 @@
                   });
 
         $.when(pt, obv).fail(onError);
+        console.log("patient", patient)
+        console.log("pt: ", pt)
+        
 
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -41,6 +44,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
+          console.log("discharge", byCodes("18842-5") )
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
