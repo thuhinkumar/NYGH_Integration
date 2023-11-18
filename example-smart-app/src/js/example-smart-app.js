@@ -1,3 +1,52 @@
+//used to create document reference
+function createDocumentReference(smart, documentData, onSuccess, onError) {
+  smart.create({
+    resourceType: 'DocumentReference',
+    body: documentData,
+    headers: {
+      'Content-Type': 'application/fhir+json'
+    }
+  }).then(onSuccess).catch(onError);
+}
+//function to fetch the document reference to summarise
+
+function fetchDocumentReference(smart, documentId) {
+  smart.read({
+    type: 'DocumentReference',
+    id: documentId
+  }).then(function(documentReference) {
+    console.log('Fetched DocumentReference:', documentReference);
+  }).catch(function(error) {
+    console.error('Error fetching DocumentReference:', error);
+  });
+}
+
+//test document data
+var documentData = {
+            resourceType: "DocumentReference",
+            status: "current", // or another appropriate status
+            type: {
+              coding: [
+                {
+                  system: "http://loinc.org",
+                  code: "18842-5",
+                  display: "Discharge summary" // Replace with appropriate display text
+                }
+              ]
+            },
+            subject: {
+              reference: "Patient/" + patient.id
+            },
+            content: [
+              {
+                attachment: {
+                  contentType: "text/plain",
+                  data: btoa("This is what I want to summarize") // Base64 encode string
+                }
+              }
+            ]
+          };
+
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -21,12 +70,24 @@
                       }
                     }
                   });
-        var docRef = smart.patient.api.fetchAll({
-                type: 'DocumentReference',
-                query: {
-                  patient: patient.id
-                }
-              });
+        //creating a document reference for the summary, this can be called later
+        createDocumentReference(smart, documentData, function(response) {
+        console.log('DocumentReference created:', response);
+        var createdDocumentId = response.id; // Assuming the response contains the ID
+        // Store this ID to fetch the document later
+        }, function(error) {
+          console.error('Error creating DocumentReference:', error);
+        });
+        .then(function(response) {
+          console.log('DocumentReference created:', response);
+        })
+        .catch(function(error) {
+          console.error('Error creating DocumentReference:', error);
+        });
+        var docRef = smart.patient.api.read({
+                    type: 'DocumentReference',
+                    id: createdDocumentId
+                  });
         
         $.when(pt, obv, docRef).fail(onError);
 
@@ -36,10 +97,10 @@
 
           var fname = '';
           var lname = '';
-          //added this to try and extract document
-          if (docRef.length > 0) {
-          var docURL = docRef[0].content[0].attachment.url;
-          console.log('Document URL:', docURL);
+          // Processing for the fetched DocumentReference
+          if (docRef) {
+            console.log('Fetched DocumentReference:', docRef);
+            // Additional processing as needed
           }
           
 
