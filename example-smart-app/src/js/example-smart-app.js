@@ -78,12 +78,8 @@ var documentData = {
         }, function(error) {
           console.error('Error creating DocumentReference:', error);
         });
-        .then(function(response) {
-          console.log('DocumentReference created:', response);
-        })
-        .catch(function(error) {
-          console.error('Error creating DocumentReference:', error);
-        });
+        console.log('DocumentReference created:', createdDocumentId);
+        
         var docRef = smart.patient.api.read({
                     type: 'DocumentReference',
                     id: createdDocumentId
