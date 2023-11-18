@@ -119,22 +119,22 @@
 
   };
     //MY FUNCTIONS
-    //used to create document reference
+  //used to create document reference
   function createDocumentReference(smart, documentData, onSuccess, onError) {
-    smart.create({
-      resourceType: 'DocumentReference',
-      body: documentData,
-      headers: { 
-        'Content-Type': 'application/fhir+json'
-      }
-    }).then(onSuccess).catch(onError);
+    return smart.request({
+    url: 'DocumentReference',
+    method: 'POST',
+    body: JSON.stringify(documentData),
+    headers: {
+      'Content-Type': 'application/fhir+json'
+    }
+  }).then(response => response.json())
+    .catch(error => console.error('Error creating DocumentReference:', error));
   }
-  //function to fetch the document reference to summarise
-  
+  //function to fetch the document reference to summaries
   function fetchDocumentReference(smart, documentId) {
-    smart.read({
-      type: 'DocumentReference',
-      id: documentId
+    smart.request(`DocumentReference/${documentId}`, {
+      method: 'GET'
     }).then(function(documentReference) {
       console.log('Fetched DocumentReference returned value:', documentReference);
     }).catch(function(error) {
