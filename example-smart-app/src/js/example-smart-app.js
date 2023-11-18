@@ -3,7 +3,7 @@ function createDocumentReference(smart, documentData, onSuccess, onError) {
   smart.create({
     resourceType: 'DocumentReference',
     body: documentData,
-    headers: {
+    headers: { 
       'Content-Type': 'application/fhir+json'
     }
   }).then(onSuccess).catch(onError);
@@ -15,7 +15,7 @@ function fetchDocumentReference(smart, documentId) {
     type: 'DocumentReference',
     id: documentId
   }).then(function(documentReference) {
-    console.log('Fetched DocumentReference:', documentReference);
+    console.log('Fetched DocumentReference returned value:', documentReference);
   }).catch(function(error) {
     console.error('Error fetching DocumentReference:', error);
   });
