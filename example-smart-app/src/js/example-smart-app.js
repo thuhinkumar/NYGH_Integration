@@ -1,27 +1,3 @@
-//used to create document reference
-function createDocumentReference(smart, documentData, onSuccess, onError) {
-  smart.create({
-    resourceType: 'DocumentReference',
-    body: documentData,
-    headers: { 
-      'Content-Type': 'application/fhir+json'
-    }
-  }).then(onSuccess).catch(onError);
-}
-//function to fetch the document reference to summarise
-
-function fetchDocumentReference(smart, documentId) {
-  smart.read({
-    type: 'DocumentReference',
-    id: documentId
-  }).then(function(documentReference) {
-    console.log('Fetched DocumentReference returned value:', documentReference);
-  }).catch(function(error) {
-    console.error('Error fetching DocumentReference:', error);
-  });
-}
-
-
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
@@ -142,6 +118,29 @@ function fetchDocumentReference(smart, documentId) {
     return ret.promise();
 
   };
+    //MY FUNCTIONS
+    //used to create document reference
+  function createDocumentReference(smart, documentData, onSuccess, onError) {
+    smart.create({
+      resourceType: 'DocumentReference',
+      body: documentData,
+      headers: { 
+        'Content-Type': 'application/fhir+json'
+      }
+    }).then(onSuccess).catch(onError);
+  }
+  //function to fetch the document reference to summarise
+  
+  function fetchDocumentReference(smart, documentId) {
+    smart.read({
+      type: 'DocumentReference',
+      id: documentId
+    }).then(function(documentReference) {
+      console.log('Fetched DocumentReference returned value:', documentReference);
+    }).catch(function(error) {
+      console.error('Error fetching DocumentReference:', error);
+    });
+  }
 
   function defaultPatient(){
     return {
