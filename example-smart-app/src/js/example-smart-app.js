@@ -22,44 +22,45 @@
                     }
                   });
   
-        //test document data
-          var documentData = {
-            resourceType: "DocumentReference",
-            status: "current", // or another appropriate status
-            type: {
-              coding: [
-                {
-                  system: "http://loinc.org",
-                  code: "18842-5",
-                  display: "Discharge summary" // Replace with appropriate display text
-                }
-              ]
-            },
-            subject: {
-              reference: "Patient/" + patient.id
-            },
-            content: [
-              {
-                attachment: {
-                  contentType: "text/plain",
-                  data: btoa("This is what I want to summarize") // Base64 encode string
-                }
-              }
-            ]
-          };//creating a document reference for the summary, this can be called later
-        createDocumentReference(smart, documentData, function(response) {
-        console.log('DocumentReference created:', response);
-        var createdDocumentId = response.id; // Assuming the response contains the ID
-        // Store this ID to fetch the document later
-        }, function(error) {
-          console.error('Error creating DocumentReference:', error);
-        });
-        console.log('DocumentReference created:', createdDocumentId);
+        // //test document data
+        //   var documentData = {
+        //     resourceType: "DocumentReference",
+        //     status: "current", // or another appropriate status
+        //     type: {
+        //       coding: [
+        //         {
+        //           system: "http://loinc.org",
+        //           code: "18842-5",
+        //           display: "Discharge summary" // Replace with appropriate display text
+        //         }
+        //       ]
+        //     },
+        //     subject: {
+        //       reference: "Patient/" + patient.id
+        //     },
+        //     content: [
+        //       {
+        //         attachment: {
+        //           contentType: "text/plain",
+        //           data: btoa("This is what I want to summarize") // Base64 encode string
+        //         }
+        //       }
+        //     ]
+        //   };//creating a document reference for the summary, this can be called later
+          
+        // createDocumentReference(smart, documentData, function(response) {
+        // console.log('DocumentReference created:', response);
+        // var createdDocumentId = response.id; // Assuming the response contains the ID
+        // // Store this ID to fetch the document later
+        // }, function(error) {
+        //   console.error('Error creating DocumentReference:', error);
+        // });
+        // console.log('DocumentReference created:', createdDocumentId);
         
-        var docRef = smart.patient.api.read({
-                    type: 'DocumentReference',
-                    id: createdDocumentId
-                  });
+        // var docRef = smart.patient.api.read({
+        //             type: 'DocumentReference',
+        //             id: createdDocumentId
+        //           });
         
         $.when(pt, obv, docRef).fail(onError);
 
@@ -86,6 +87,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
+          var dischargeSumary = byCodes("18842-5")
           console.log(patient)
           console.log(smart)
 
