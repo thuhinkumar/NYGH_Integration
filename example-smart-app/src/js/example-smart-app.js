@@ -88,6 +88,7 @@
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
           var dischargeSumary = byCodes("18842-5")
+          console.log("DISCHARGE SUMMAR IS", dischargeSumary)
 
           console.log(patient)
           console.log(smart)
