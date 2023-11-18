@@ -21,15 +21,27 @@
                       }
                     }
                   });
+        var docRef = smart.patient.api.fetchAll({
+                type: 'DocumentReference',
+                query: {
+                  patient: patient.id
+                }
+              });
+        
+        $.when(pt, obv, docRef).fail(onError);
 
-        $.when(pt, obv).fail(onError);
-
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, docRef).done(function(patient, obv, docRef) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
           var fname = '';
           var lname = '';
+          //added this to try and extract document
+          if (docRef.length > 0) {
+          var docURL = docRef[0].content[0].attachment.url;
+          console.log('Document URL:', docURL);
+          }
+          
 
           if (typeof patient.name[0] !== 'undefined') {
             fname = patient.name[0].given.join(' ');
