@@ -81,77 +81,46 @@
         </tr> 
       </table>
     </div> -->
-    <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg"
-    id='holder'>
-      <div class="px-4 py-5 sm:px-6">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Example-SMART-App
-          </h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">
-              Details and informations about user.
-          </p>
-      </div>
-      <div class="border-t border-gray-200">
+    <div class="items-bottom flex h-screen items-center justify-center">
+      <div class="max-w-2xl overflow-hidden bg-white shadow sm:rounded-lg" id="holder">
+        <div class="px-4 py-5 sm:px-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Example-SMART-App</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Details and informations about user.</p>
+        </div>
+        <div class="border-t border-gray-200">
           <dl>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">
-                      Full name
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" 
-                  id='fname'>
-                  </dd>
-              </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">
-                      Last Name
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                  id='lname'>
-                  </dd>
-              </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">
-                      Gender
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                  id='gender'>
-                  </dd>
-              </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">
-                      Date of Birth
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                  id='birthdate'>
-                  </dd>
-              </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500">
-                    Discharge Summary:
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                  id='Discharge_summary'>
-                  </dd>
-              </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">
-                  Patient Progress Notes:
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                id="progress-notes">
-                </dd>
-              </div>
-             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-500">
-                Generated Summary From Llama2 Model:
-              </dt>
-              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-              id="summary">
-              </dd>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Full name</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="fname"></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Last Name</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="lname"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Gender</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="gender"></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="birthdate"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Discharge Summary:</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="Discharge_summary"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Patient Progress Notes:</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="progress-notes"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Generated Summary From Llama2 Model:</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="summary"></dd>
             </div>
           </dl>
+        </div>
       </div>
-  </div>
+    </div>
     <!-- Required JS files to enable this page to embed within an MPage -->
     <!--
       Temporarily disable cerner-smart-embeddable-lib
