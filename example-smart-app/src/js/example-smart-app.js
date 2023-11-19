@@ -26,6 +26,8 @@
                               'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
                               'http://loinc.org|2089-1', 'http://loinc.org|55284-4',
                               'http://loinc.org|18842-5', 'http://loinc.org|18748-4',
+                              'http://loinc.org|28655-9', 'http://loinc.org|11506-3 ',
+                              'http://loinc.org|28570-0 ', 'http://loinc.org|18733-6 ',
                              ]
                       }
                     }
@@ -52,8 +54,9 @@
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
           console.log("Discharge_summary!:", Discharge_summary)
-          console.log("height:", byCodes('8302-2'))
+          console.log("height:", getQuantityValueAndUnit(height[0]))
           console.log("description:", byCodes('18748-4'), byCodes('28655-9'))
+          console.log("PLEASE WORK",byCodes('11506-3'), byCodes('28570-0'),  byCodes('18733-6'),)
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
