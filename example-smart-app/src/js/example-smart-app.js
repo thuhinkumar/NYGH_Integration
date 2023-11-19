@@ -15,8 +15,17 @@
         console.log("pt: ", pt)
         var patientId = patient.id
         console.log("Storing information")
-        createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
-        
+
+
+        createTextMessageObservation(smart, patientId, 'Testing sample message')
+        .then(response => {
+            console.log('Observation created successfully', response);
+        })
+        .catch(error => {
+            console.error('Error creating observation', error);
+        });
+
+        console.log("Done storing information")
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -70,7 +79,7 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
-
+          print("Generated patient = ", p)
           ret.resolve(p);
 
           // Call the Llama2 model and display the result
