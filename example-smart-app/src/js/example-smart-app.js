@@ -108,19 +108,37 @@
   }
 
   async function query_model(data) {
-    const response = await fetch(
-      "https://a2907qjht80r9qrb.us-east-1.aws.endpoints.huggingface.cloud",
-      {
-        headers: {
-          "Authorization": "Bearer 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",
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
-    const result = await response.json();
-    return result;
+    // const response = await fetch(
+    //   "https://a2907qjht80r9qrb.us-east-1.aws.endpoints.huggingface.cloud",
+    //   {
+    //     headers: {
+    //       "Authorization": "Bearer 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",
+    //       "Content-Type": "application/json"
+    //     },
+    //     method: "POST",
+    //     body: JSON.stringify(data),
+    //   }
+    // );
+    // const result = await response.json();
+    // return result;
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer RiDEhewoLaUjSdUnaULaktLjlWhBlDKdNtpGSMjQTsIoiTTfnkdMIZITZBNAHlbRdtjGYBvlRWDwbDMnpkYjJTkDfdQeEpnxkUNURmEBflwRqrzpjdMrulyKScrzTCoT");
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({ "inputs": "<s>[INST] <<SYS>> You are a helpful assistant that takes patient progress notes over a number of days and summarizes it into one paragraph. Summarize the following text: Day 1: Delirium: Secondary to pneumonia. Needed Haldol x1, started risperidone qAM. Pneumonia: On ceftriaxone, WBC 18 today. Needing 2L oxygen. Constipation: Given enema. Day 2: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 10 today. Off oxygen now. Constipation: Multiple BM with enema. Day 3: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Caregiver burden: Daughter mentioned increased caregiver burden at home. SW to see. Day  4: Delirium: Secondary to pneumonia. Better on risperidone q AM. Resolved. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Continue antibiotics for five days total. Caregiver burden: Seen by SW. Discharge home with increased supports. <</SYS>>[/INST]<s>", "parameters": { "max_new_tokens": 500 } });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://a2907qjht80r9qrb.us-east-1.aws.endpoints.huggingface.cloud", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 
   function displayResult(result) {
