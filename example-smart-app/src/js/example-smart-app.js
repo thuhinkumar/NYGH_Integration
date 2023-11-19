@@ -17,8 +17,7 @@
         console.log("Storing information")
 
 
-        createTextMessageObservation(smart, patientId, 'Testing sample message')
-        .then(response => {
+        createTextMessageObservation(smart, patientId, 'Testing sample message').then(response => {
             console.log('Observation created successfully', response);
         })
         .catch(error => {
@@ -40,7 +39,6 @@
                   });
 
         $.when(pt, obv).fail(onError);
-        // var getTextMessagObservation(smart,patientId);
         
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -203,8 +201,8 @@ function createTextMessageObservation(smart, patientId, textMessage) {
       valueString: textMessage // The text message you want to store
   };
 
-  return smart.patient.api.fetchAll({
-      url: 'DocumentReference',
+  return smart.patient.api.request({
+      url: 'Observation',
       method: 'POST',
       headers: {
           'Content-Type': 'application/fhir+json'
