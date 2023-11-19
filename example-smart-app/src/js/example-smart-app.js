@@ -20,23 +20,14 @@
         console.log("Done storing information")
         var observationsPromise = smart.patient.api.fetchAll({
           type: 'Observation',
-          query: {
-            subject: `Patient/${patient.id}`
-          }
         })
 
         var diagnosticReportsPromise = smart.patient.api.fetchAll({
           type: 'DiagnosticReport',
-          query: {
-            subject: `Patient/${patient.id}`
-          }
         });
 
         var documentReferencesPromise = smart.patient.api.fetchAll({
           type: 'DocumentReference',
-          query: {
-            subject: `Patient/${patient.id}`
-          }
         });
 
 
