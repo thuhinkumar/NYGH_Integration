@@ -14,8 +14,7 @@
         console.log("patient", patient)
         console.log("pt: ", pt)
         var patientId = patient.id
-        console.log("Storing information")
-
+        console.log("Storing information!")
 
         createTextMessageObservation(smart, patientId, 'Testing sample message').then(response => {
             console.log('Observation created successfully', response);
@@ -201,7 +200,7 @@ function createTextMessageObservation(smart, patientId, textMessage) {
       valueString: textMessage // The text message you want to store
   };
 
-  return smart.patient.api.request({
+  return smart.request({
       url: 'Observation',
       method: 'POST',
       headers: {
