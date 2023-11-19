@@ -50,7 +50,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
-          console.log("Discharge_summary", byCodes("18842-5") )
+          console.log("Discharge_summary:",Discharge_summary)
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
