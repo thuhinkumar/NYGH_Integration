@@ -16,13 +16,8 @@
         var patientId = patient.id
         console.log("Storing information!")
 
-        createTextMessageObservation(smart, patientId, 'Testing sample message').then(response => {
-            console.log('Observation created successfully', response);
-        })
-        .catch(error => {
-            console.error('Error creating observation', error);
-        });
-
+        createTextMessageObservation(smart, patientId, 'Testing sample message')
+        
         console.log("Done storing information")
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
@@ -57,7 +52,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
-          console.log("Discharge_summary!:",byCodes("18842-5"))
+          console.log("Discharge_summary!:", Discharge_summary)
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
