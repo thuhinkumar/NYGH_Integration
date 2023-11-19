@@ -166,6 +166,7 @@ function createTextMessageObservation(smart, patientId, textMessage) {
       },
       body: JSON.stringify(observation)
   });
+}
 
 // (function(window){
 //   window.extractData = function() {
