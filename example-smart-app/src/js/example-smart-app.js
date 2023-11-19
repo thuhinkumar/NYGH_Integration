@@ -11,6 +11,12 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
+        console.log("patient", patient)
+        console.log("pt: ", pt)
+        var patientId = patient.id
+        console.log("Storing information")
+        createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
+        
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -18,18 +24,14 @@
                         $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
                               'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
                               'http://loinc.org|2089-1', 'http://loinc.org|55284-4',
-                              // 'http://loinc.org|18842-5',
+                              'http://loinc.org|18842-5',
                              ]
                       }
                     }
                   });
 
         $.when(pt, obv).fail(onError);
-        console.log("patient", patient)
-        console.log("pt: ", pt)
-        var patientId = patient.id
-        console.log("Storing information")
-        createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
+        var getTextMessagObservation(smart,patientId);
         
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -42,7 +44,7 @@
             fname = patient.name[0].given.join(' ');
             lname = patient.name[0].family.join(' ');
           }
-
+          var Discharge_summary = byCodes('18842-5');
           var height = byCodes('8302-2');
           var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
           var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
@@ -56,6 +58,7 @@
           p.fname = fname;
           p.lname = lname;
           p.height = getQuantityValueAndUnit(height[0]);
+          p.Discharge_summary = Discharge_summary;
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -91,6 +94,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+      Discharge_summary: {value: ''}
     };
   }
 
@@ -136,12 +140,9 @@
     $('#hdl').html(p.hdl);
   };
 
-})(window);
-
-
 function createTextMessageObservation(smart, patientId, textMessage) {
   var observation = {
-      resourceType: 'DocumentReference',
+      resourceType: 'Observation',
       status: 'final',
       code: {
           coding: [
@@ -167,6 +168,7 @@ function createTextMessageObservation(smart, patientId, textMessage) {
       body: JSON.stringify(observation)
   });
 }
+})(window);
 
 // (function(window){
 //   window.extractData = function() {
@@ -328,46 +330,46 @@ function createTextMessageObservation(smart, patientId, textMessage) {
 //     };
 //   }
 
-//   function getBloodPressureValue(BPObservations, typeOfPressure) {
-//     var formattedBPObservations = [];
-//     BPObservations.forEach(function(observation){
-//       var BP = observation.component.find(function(component){
-//         return component.code.coding.find(function(coding) {
-//           return coding.code == typeOfPressure;
-//         });
-//       });
-//       if (BP) {
-//         observation.valueQuantity = BP.valueQuantity;
-//         formattedBPObservations.push(observation);
-//       }
-//     });
+  // function getBloodPressureValue(BPObservations, typeOfPressure) {
+  //   var formattedBPObservations = [];
+  //   BPObservations.forEach(function(observation){
+  //     var BP = observation.component.find(function(component){
+  //       return component.code.coding.find(function(coding) {
+  //         return coding.code == typeOfPressure;
+  //       });
+  //     });
+  //     if (BP) {
+  //       observation.valueQuantity = BP.valueQuantity;
+  //       formattedBPObservations.push(observation);
+  //     }
+  //   });
 
-//     return getQuantityValueAndUnit(formattedBPObservations[0]);
-//   }
+  //   return getQuantityValueAndUnit(formattedBPObservations[0]);
+  // }
 
-//   function getQuantityValueAndUnit(ob) {
-//     if (typeof ob != 'undefined' &&
-//         typeof ob.valueQuantity != 'undefined' &&
-//         typeof ob.valueQuantity.value != 'undefined' &&
-//         typeof ob.valueQuantity.unit != 'undefined') {
-//           return ob.valueQuantity.value + ' ' + ob.valueQuantity.unit;
-//     } else {
-//       return undefined;
-//     }
-//   }
+  // function getQuantityValueAndUnit(ob) {
+  //   if (typeof ob != 'undefined' &&
+  //       typeof ob.valueQuantity != 'undefined' &&
+  //       typeof ob.valueQuantity.value != 'undefined' &&
+  //       typeof ob.valueQuantity.unit != 'undefined') {
+  //         return ob.valueQuantity.value + ' ' + ob.valueQuantity.unit;
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
 
-//   window.drawVisualization = function(p) {
-//     $('#holder').show();
-//     $('#loading').hide();
-//     $('#fname').html(p.fname);
-//     $('#lname').html(p.lname);
-//     $('#gender').html(p.gender);
-//     $('#birthdate').html(p.birthdate);
-//     $('#height').html(p.height);
-//     $('#systolicbp').html(p.systolicbp);
-//     $('#diastolicbp').html(p.diastolicbp);
-//     $('#ldl').html(p.ldl);
-//     $('#hdl').html(p.hdl);
-//   };
+  // window.drawVisualization = function(p) {
+  //   $('#holder').show();
+  //   $('#loading').hide();
+  //   $('#fname').html(p.fname);
+  //   $('#lname').html(p.lname);
+  //   $('#gender').html(p.gender);
+  //   $('#birthdate').html(p.birthdate);
+  //   $('#height').html(p.height);
+  //   $('#systolicbp').html(p.systolicbp);
+  //   $('#diastolicbp').html(p.diastolicbp);
+  //   $('#ldl').html(p.ldl);
+  //   $('#hdl').html(p.hdl);
+  // };
 
 // })(window);
