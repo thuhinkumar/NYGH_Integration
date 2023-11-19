@@ -31,7 +31,7 @@
                   });
 
         $.when(pt, obv).fail(onError);
-        var getTextMessagObservation(smart,patientId);
+        // var getTextMessagObservation(smart,patientId);
         
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
