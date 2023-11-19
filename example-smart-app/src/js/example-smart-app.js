@@ -11,39 +11,37 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
-        console.log("Starting data extraction for patient");
+        console.log("pt: ", pt)
         var patientId = patient.id
         console.log("Storing information!")
 
         createTextMessageObservation(smart, patientId, 'Testing sample message')
 
         console.log("Done storing information")
-        var observationsPromise = smart.patient.api.fetchAll({
-          type: 'Observation',
-        })
+        var obv = smart.patient.api.fetchAll({
+                    type: 'Observation',
+                    query: {
+                      code: {
+                        $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
+                              'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
+                              'http://loinc.org|2089-1', 'http://loinc.org|55284-4',
+                              'http://loinc.org|18842-5', 'http://loinc.org|18748-4',
+                              'http://loinc.org|28655-9', 'http://loinc.org|11506-3 ',
+                              'http://loinc.org|28570-0 ', 'http://loinc.org|75490-3 ',
+                             ]
+                      }
+                    }
+                  });
 
-        var diagnosticReportsPromise = smart.patient.api.fetchAll({
-          type: 'DiagnosticReport',
-        });
-
-        var documentReferencesPromise = smart.patient.api.fetchAll({
-          type: 'DocumentReference',
-        });
-
-
-        $.when(pt, observationsPromise, diagnosticReportsPromise, documentReferencesPromise).fail(onError);
-
-        $.when(pt, observationsPromise, diagnosticReportsPromise, documentReferencesPromise).done(function(patient, observations, diagnosticReports, documentReferences) {
+        $.when(pt, obv).fail(onError);
+        
+        $.when(pt, obv).done(function(patient, obv) {
           console.log("patient2", patient)
-          var byCodes = smart.byCodes(observations, 'code');
+          var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
           var fname = '';
           var lname = '';
-
-          console.log("LOINC codes from Observations:", observations.map(o => o.code.coding.map(c => c.code)).flat());
-          console.log("Diagnostic Reports:", diagnosticReports);
-          console.log("Document References:", documentReferences);
 
           if (typeof patient.name[0] !== 'undefined') {
             fname = patient.name[0].given.join(' ');
@@ -58,7 +56,7 @@
           console.log("Discharge_summary!:", Discharge_summary)
           console.log("height:", getQuantityValueAndUnit(height[0]))
           console.log("description:", byCodes('18748-4'), byCodes('28655-9'))
-          console.log("PLEASE WORK",byCodes('11506-3'), byCodes('28570-0'),  byCodes('18733-6'),)
+          console.log("PLEASE WORK",  byCodes('75490-3'))
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
