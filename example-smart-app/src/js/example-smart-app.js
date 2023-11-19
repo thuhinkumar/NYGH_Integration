@@ -25,8 +25,9 @@
         $.when(pt, obv).fail(onError);
         console.log("patient", patient)
         console.log("pt: ", pt)
+        var patientID = patient.id
+        createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
         
-
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -133,6 +134,37 @@
   };
 
 })(window);
+
+
+function createTextMessageObservation(smart, patientId, textMessage) {
+  var observation = {
+      resourceType: 'Observation',
+      status: 'final',
+      code: {
+          coding: [
+              {
+                  system: "http://loinc.org",
+                  code: "18842-5",
+                  display: "Discharge summary"
+              }
+          ]
+      },
+      subject: {
+          reference: `Patient/${patientId}`
+      },
+      valueString: textMessage // The text message you want to store
+  };
+
+  return smart.request({
+      url: 'Observation',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/fhir+json'
+      },
+      body: JSON.stringify(observation)
+  });
+}
+
 // (function(window){
 //   window.extractData = function() {
 //     var ret = $.Deferred();
