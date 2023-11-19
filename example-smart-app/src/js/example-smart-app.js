@@ -40,6 +40,7 @@
         $.when(pt, obv).fail(onError);
         
         $.when(pt, obv).done(function(patient, obv) {
+          console.log("patient2", patient)
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -189,18 +190,16 @@ function createTextMessageObservation(smart, patientId, textMessage) {
           coding: [
               {
                   system: "http://loinc.org",
-                  code: "18842-5",
+                  code: "8302-2",
                   display: "Discharge summary"
               }
           ]
       },
-      subject: {
-          reference: `Patient/${patientId}`
-      },
-      valueString: textMessage // The text message you want to store
+
+      valueString: textMessage
   };
 
-  return smart.request({
+  return smart.patient.api.fetchAll({
       url: 'Observation',
       method: 'POST',
       headers: {
