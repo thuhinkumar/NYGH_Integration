@@ -25,7 +25,7 @@
         $.when(pt, obv).fail(onError);
         console.log("patient", patient)
         console.log("pt: ", pt)
-        var patientID = patient.id
+        var patientId = patient.id
         console.log("Storing information")
         createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
         
