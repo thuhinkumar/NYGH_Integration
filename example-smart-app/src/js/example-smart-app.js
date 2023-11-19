@@ -26,6 +26,7 @@
         console.log("patient", patient)
         console.log("pt: ", pt)
         var patientID = patient.id
+        console.log("Storing information")
         createTextMessageObservation(smart, patientId, 'TESTING SAMPLE');
         
         $.when(pt, obv).done(function(patient, obv) {
