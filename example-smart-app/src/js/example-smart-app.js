@@ -18,7 +18,7 @@
                         $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
                               'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
                               'http://loinc.org|2089-1', 'http://loinc.org|55284-4',
-                              'http://loinc.org|18842-5',
+                              // 'http://loinc.org|18842-5',
                              ]
                       }
                     }
@@ -141,7 +141,7 @@
 
 function createTextMessageObservation(smart, patientId, textMessage) {
   var observation = {
-      resourceType: 'Observation',
+      resourceType: 'DocumentReference',
       status: 'final',
       code: {
           coding: [
@@ -159,14 +159,13 @@ function createTextMessageObservation(smart, patientId, textMessage) {
   };
 
   return smart.patient.api.fetchAll({
-      url: 'Observation',
+      url: 'DocumentReference',
       method: 'POST',
       headers: {
           'Content-Type': 'application/fhir+json'
       },
       body: JSON.stringify(observation)
   });
-}
 
 // (function(window){
 //   window.extractData = function() {
