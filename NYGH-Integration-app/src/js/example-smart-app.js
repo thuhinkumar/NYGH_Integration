@@ -76,7 +76,6 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
-          print("Generated patient = ", p)
           ret.resolve(p);
 
           // Call the Llama2 model and display the result
