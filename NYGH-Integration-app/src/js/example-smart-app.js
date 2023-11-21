@@ -42,7 +42,7 @@
 
           var fname = '';
           var lname = '';
-
+          
           if (typeof patient.name[0] !== 'undefined') {
             fname = patient.name[0].given.join(' ');
             lname = patient.name[0].family.join(' ');
@@ -131,8 +131,6 @@
   }
 
   function displaySummary(result) {
-    document.getElementById('progress-notes').innerHTML = `Day 1: Delirium: Secondary to pneumonia. Needed Haldol x1, started risperidone qAM. Pneumonia: On ceftriaxone, WBC 18 today. Needing 2L oxygen. Constipation: Given enema. Day 2: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 10 today. Off oxygen now. Constipation: Multiple BM with enema. Day 3: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Caregiver burden: Daughter mentioned increased caregiver burden at home. SW to see. Day  4: Delirium: Secondary to pneumonia. Better on risperidone q AM. Resolved. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Continue antibiotics for five days total. Caregiver burden: Seen by SW. Discharge home with increased supports.`;
-
     const generatedText = result[0].generated_text;
     const formattedText = generatedText.split('\n').join('<br>');
     document.getElementById('summary').innerHTML = formattedText;
