@@ -126,10 +126,9 @@
             </div>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-medium text-gray-500">Generated Summary From Llama2 Model</dt>
-              <div class="mt-1 sm:col-span-2 sm:mt-0 flex flex-col sm:flex-row justify-between">
-                <textarea id="summary" class="form-textarea mt-1 block w-full text-sm text-gray-900 bg-gray-50 flex-grow" rows="15" placeholder="Generating summary, please wait..."></textarea>
-                <!-- button action class not implemented yet -->
-                <button class="mt-2 sm:mt-0 sm:ml-2 px-4 py-2 bg-blue-500 text-white font-bold text-sm leading-tight uppercase rounded hover:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out self-end" type="button" onclick="saveSummary()">Save</button>
+              <div class="mt-1 sm:col-span-2 sm:mt-0 flex flex-col">
+                <textarea id="summary" class="form-textarea mt-1 block w-full text-sm text-gray-900 bg-gray-50 mb-2" rows="4" placeholder="Generating summary, please wait..."></textarea>
+                <button class="px-4 py-2 bg-blue-500 text-white font-bold text-sm leading-tight uppercase rounded hover:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" onclick="saveSummary()">Save</button>
               </div>
             </div>
           </dl>
@@ -155,17 +154,4 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
       extractData().then(
-        //Display Patient Demographics and Observations if extractData was success
-        function(p) {
-          drawVisualization(p);
-        },
-
-        //Display 'Failed to call FHIR Service' if extractData failed
-        function() {
-          $('#loading').hide();
-          $('#errors').html('<p> Failed to call FHIR Service </p>');
-        }
-      );
-    </script>
-  </body>
-</html>
+ 
