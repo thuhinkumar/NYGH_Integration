@@ -110,11 +110,11 @@ window.globalSummaries = {};
   // Queries Llama2 model with input data.
   async function query_model(patientName) {
 
-    var globalSummaries = JSON.parse(localStorage.getItem('globalSummaries')) || {};
+    var globalSummaries = JSON.parse(sessionStorage.getItem('globalSummaries')) || {};
 
     // Check if the summary for the given patient name already exists
     if (globalSummaries.hasOwnProperty(patientName)) {
-      console.log('Returning saved summary for:', patientName);
+      console.log('Returning saved summary for:', patientName, "summary is",globalSummaries[patientName] );
       displaySummary([{generated_text: globalSummaries[patientName]}]);
       return; 
     }
