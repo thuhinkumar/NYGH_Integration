@@ -115,8 +115,8 @@ window.globalSummaries = {};
     // Check if the summary for the given patient name already exists
     if (globalSummaries.hasOwnProperty(patientName)) {
       console.log('Returning saved summary for:', patientName);
-      displaySummary({generated_text: globalSummaries[patientName]});
-      return; // Exit the function as the summary is already available
+      displaySummary([{generated_text: globalSummaries[patientName]}]);
+      return; 
     }
 
     var myHeaders = new Headers();
