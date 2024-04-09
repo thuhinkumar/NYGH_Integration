@@ -8,10 +8,10 @@
     }
 
     function saveSummary() {
-      var summaryText = document.getElementById('summary').value;
-      alert('Summary saved successfully.');
-      console.log('Saved Summary:', summaryText); 
-    }
+        var summaryText = document.getElementById('summary').value;
+        alert('Summary saved successfully.');
+        console.log('Saved Summary:', summaryText); 
+     }
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
@@ -138,10 +138,7 @@
 
   function displaySummary(result) {
     const generatedText = result[0].generated_text;
-    const formattedText = generatedText.split('\n').join('\n\n');
-    document.getElementById('summary').value = formattedText;
-}
-    document.getElementById('summary').innerHTML = formattedText;
+    document.getElementById('summary').innerHTML = generatedText;
   }
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
