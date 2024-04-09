@@ -109,16 +109,19 @@
         var firstName = document.getElementById('fname').innerText;
         var summaryText = document.getElementById('summary').value;
 
-        if (!window.globalSummaries) {
-          window.globalSummaries = {};
-        }
+        // Retrieve existing summaries from localStorage, or initialize an empty object if none exist
+        var globalSummaries = JSON.parse(localStorage.getItem('globalSummaries')) || {};
 
-        window.globalSummaries[firstName] = summaryText;
+        // Update the dictionary with the new summary
+        globalSummaries[firstName] = summaryText;
+
+        // Save the updated dictionary back to localStorage
+        localStorage.setItem('globalSummaries', JSON.stringify(globalSummaries));
 
         console.log('Saved Summary:', summaryText); 
         console.log('First name:', firstName); 
         alert('Summary saved successfully.');
-     }
+      }
     </script>
   </body>
 </html>
