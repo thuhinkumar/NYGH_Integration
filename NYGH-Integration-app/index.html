@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>Example-SMART-App Thuhinkumar</title>
+
+    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!--
+      Temporarily disable cerner-smart-embeddable-lib 
+      <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
+    -->
+  </head>
+  <body>
+    <div id='errors'>
+    </div>
+    <div id="loading" class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+    <!-- <div id='holder' >
+      <h2>Example-SMART-App</h2>
+
+      <h2>Patient Resource</h2>
+      <table>
+        <tr>
+          <th>First Name:</th>
+          <td id='fname'></td>
+        </tr>
+        <tr>
+          <th>Last Name:</th>
+          <td id='lname'></td>
+        </tr>
+        <tr>
+          <th>Gender:</th>
+          <td id='gender'></td>
+        </tr>
+        <tr>
+          <th>Date of Birth:</th>
+          <td id='birthdate'></td>
+        </tr>
+        <tr>
+          <th>Discharge Summary:</th>
+          <td id='Discharge_summary'></td>
+        </tr>
+      </table>
+
+      <h3>Patient Progress Notes:</h3>
+      <p id="progress-notes"></p>
+      <h3>Generated Summary From Llama2 Model:</h3>
+      <p id="summary"></p>
+      <h2>Observation Resource</h2>
+      
+      <table>
+        <tr>
+          <th>Height:</th>
+          <td id='height'></td>
+        </tr>
+        <tr>
+          <th>Systolic Blood Pressure:</th>
+          <td id='systolicbp'></td>
+
+        </tr>
+        <tr>
+          <th>Diastolic Blood Pressure:</th>
+          <td id='diastolicbp'></td>
+        </tr>
+        <tr>
+          <th>LDL:</th>
+          <td id='ldl'></td>
+        </tr>
+        <tr>
+          <th>HDL:</th>
+          <td id='hdl'></td>
+        </tr>
+        <tr>
+          <th>Testing post request:</th>
+          <td id='text'></td>
+        </tr> 
+      </table>
+    </div> -->
+    <div class="items-bottom flex h-screen items-center justify-center">
+      <div class="max-w-2xl overflow-hidden border border-gray-200 bg-white shadow-xl sm:rounded-lg" id="holder">
+        <div class="px-4 py-5 sm:px-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Example-SMART-App</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Details and informations about user.</p>
+        </div>
+        <div class="border-t border-gray-200">
+          <dl>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Full name</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="fname"></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Last Name</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="lname"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Gender</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="gender"></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="birthdate"></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Height</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="height"></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Systolic Blood Pressure</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id='diastolicbp'></dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">HDL</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id='hdl'></dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Patient Progress Notes:</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0" id="progress-notes">Day 1: Delirium: Secondary to pneumonia. Needed Haldol x1, started risperidone qAM. Pneumonia: On ceftriaxone, WBC 18 today. Needing 2L oxygen. Constipation: Given enema. Day 2: Delirium: Secondary to
+              pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 10 today. Off oxygen now. Constipation: Multiple BM with enema. Day 3: Delirium: Secondary to pneumonia. Better on risperidone q
+              AM. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Caregiver burden: Daughter mentioned increased caregiver burden at home. SW to see. Day 4: Delirium: Secondary to pneumonia. Better on
+              risperidone q AM. Resolved. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Continue antibiotics for five days total. Caregiver burden: Seen by SW. Discharge home with increased supports.</dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Generated Summary From Llama2 Model</dt>
+              <div class="mt-1 sm:col-span-2 sm:mt-0 flex flex-col">
+                <textarea id="summary" class="form-textarea mt-1 block w-full text-sm text-gray-900 bg-gray-50 mb-2" rows="12" placeholder="Generating summary, please wait..."></textarea>
+                <button class="px-4 py-2 bg-blue-500 text-white font-bold text-sm leading-tight uppercase rounded hover:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" onclick="saveSummary()">Save</button>
+              </div>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <!-- Required JS files to enable this page to embed within an MPage -->
+    <!--
+      Temporarily disable cerner-smart-embeddable-lib
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
+      <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
+    -->
+
+    <!-- Application-level javascript-->
+    <script src='./src/js/example-smart-app.js'></script>
+
+    <!-- FHIR Client JS Library -->
+    <script src='./lib/js/fhir-client-v0.1.12.js'></script>
+
+    <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
+    <!-- https://github.com/cerner/fhir-client-cerner-additions -->
+    <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      extractData().then(
+        //Display Patient Demographics and Observations if extractData was success
+        function(p) {
+          drawVisualization(p);
+        },
+
+        //Display 'Failed to call FHIR Service' if extractData failed
+        function() {
+          $('#loading').hide();
+          $('#errors').html('<p> Failed to call FHIR Service </p>');
+        }
+      );
+    </script>
+  </body>
+</html>
