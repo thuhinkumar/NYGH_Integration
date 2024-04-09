@@ -127,7 +127,7 @@
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-medium text-gray-500">Generated Summary From Llama2 Model</dt>
               <div class="mt-1 sm:col-span-2 sm:mt-0 flex flex-col">
-                <textarea id="summary" class="form-textarea mt-1 block w-full text-sm text-gray-900 bg-gray-50 mb-2" rows="4" placeholder="Generating summary, please wait..."></textarea>
+                <textarea id="summary" class="form-textarea mt-1 block w-full text-sm text-gray-900 bg-gray-50 mb-2" rows="12" placeholder="Generating summary, please wait..."></textarea>
                 <button class="px-4 py-2 bg-blue-500 text-white font-bold text-sm leading-tight uppercase rounded hover:bg-blue-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" onclick="saveSummary()">Save</button>
               </div>
             </div>
@@ -165,17 +165,6 @@
           $('#errors').html('<p> Failed to call FHIR Service </p>');
         }
       );
-      
-
-      function saveSummary() {
-        var summaryText = document.getElementById('summary').value;
-
-        alert('Summary saved successfully.');
-        console.log('Saved Summary:', summaryText);
-
-      }
-
-
     </script>
   </body>
 </html>

@@ -7,6 +7,12 @@
       ret.reject();
     }
 
+    function saveSummary() {
+      var summaryText = document.getElementById('summary').value;
+      alert('Summary saved successfully.');
+      console.log('Saved Summary:', summaryText); 
+    }
+
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
@@ -109,7 +115,7 @@
   // Queries Llama2 model with input data.
   async function query_model(data) {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer RiDEhewoLaUjSdUnaULaktLjlWhBlDKdNtpGSMjQTsIoiTTfnkdMIZITZBNAHlbRdtjGYBvlRWDwbDMnpkYjJTkDfdQeEpnxkUNURmEBflwRqrzpjdMrulyKScrzTCoT");
+    myHeaders.append("Authorization", "Bearer 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");
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({ "inputs": "<s>[INST] <<SYS>> You are a helpful assistant that takes patient progress notes over a number of days and summarizes it into one paragraph. Summarize the following text: Day 1: Delirium: Secondary to pneumonia. Needed Haldol x1, started risperidone qAM. Pneumonia: On ceftriaxone, WBC 18 today. Needing 2L oxygen. Constipation: Given enema. Day 2: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 10 today. Off oxygen now. Constipation: Multiple BM with enema. Day 3: Delirium: Secondary to pneumonia. Better on risperidone q AM. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Caregiver burden: Daughter mentioned increased caregiver burden at home. SW to see. Day  4: Delirium: Secondary to pneumonia. Better on risperidone q AM. Resolved. Pneumonia: On ceftriaxone, WBC 5 today. Off oxygen now. Continue antibiotics for five days total. Caregiver burden: Seen by SW. Discharge home with increased supports. <</SYS>>[/INST]<s>", "parameters": { "max_new_tokens": 500 } });
@@ -121,7 +127,7 @@
       redirect: 'follow'
     };
 
-    fetch("https://a2907qjht80r9qrb.us-east-1.aws.endpoints.huggingface.cloud", requestOptions)
+    fetch("https://k3lo5s5wk8w2ozm9.us-east-1.aws.endpoints.huggingface.cloud", requestOptions)
       .then(response => response.json())
       .then(result => {
         displaySummary(result);
@@ -131,9 +137,10 @@
   }
 
   function displaySummary(result) {
-    //const generatedText = result[0].generated_text;
-    const generatedText = "LLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi efficitur, aliquet nulla sed, vulputate purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent in sapien felis. Integer nec felis nisi. Fusce ut placerat orci, in dapibus ante. Vivamus auctor, est vel sollicitudin aliquet, enim erat tempor dolor, sed laoreet libero augue a erat. Mauris non nulla quis eros volutpat elementum. Curabitur eget semper ante. Quisque sagittis, libero eget luctus faucibus, purus ex egestas magna, a tempor libero turpis ut mauris. Sed ut imperdiet orci. Nullam vehicula, orci nec ullamcorper hendrerit, dolor mi mattis libero, vitae egestas eros sapien at justo. Nunc vitae libero dapibus, ultrices est quis, efficitur risus. Suspendisse potenti. Phasellus consequat, nisl sit amet auctor auctor, nisi eros bibendum lorem, vel facilisis magna dolor non odio. Aenean lacinia, lorem a viverra consectetur, nisi nisl molestie nunc, eget fermentum leo turpis vel mi. Etiam sit amet est pellentesque, dapibus massa non, vehicula urna. Proin in magna consequat, viverra enim nec, hendrerit quam. Pellentesque mollis enim id urna fermentum, at ullamcorper dui blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis at velit maximus, molestie est a, tempor quam. In hac habitasse platea dictumst. Vivamus ullamcorper velit et nisi efficitur, non mollis quam blandit. Integer id velit ut orci sodales volutpat in at orci. Pellentesque et nisi sed enim facilisis rutrum. Maecenas non lorem sit amet velit faucibus sodales. Morbi consequat, risus in suscipit porta, lorem leo fermentum lorem, nec faucibus est ipsum a libero. Sed ac felis eget velit aliquet sagittis."
-    const formattedText = generatedText.split('\n').join('<br>');
+    const generatedText = result[0].generated_text;
+    const formattedText = generatedText.split('\n').join('\n\n');
+    document.getElementById('summary').value = formattedText;
+}
     document.getElementById('summary').innerHTML = formattedText;
   }
 
